@@ -1,18 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { footer } from '../data/mock';
 import { Flame, Twitter, Linkedin, Instagram, Github } from 'lucide-react';
 
 const Footer = () => {
+  // Map footer items to their routes
+  const getItemLink = (item) => {
+    const linkMap = {
+      'Features': '/#features',
+      'Communities': '/#communities',
+      'Marketplace': '/#marketplace',
+      'FireProof': '/fireproof',
+      'Investors': '/investors'
+    };
+    return linkMap[item] || '#';
+  };
+
+  const isInternalRoute = (item) => {
+    return ['FireProof', 'Investors'].includes(item);
+  };
+
   return (
     <footer className="bg-[#0a0b14] border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <a href="/" className="flex items-center gap-2 mb-4">
+            <Link to="/" className="flex items-center gap-2 mb-4">
               <Flame className="w-8 h-8 text-orange-500" />
               <span className="text-white font-bold text-xl">{footer.brand}</span>
-            </a>
+            </Link>
             <p className="text-gray-400 mb-6 max-w-xs">
               {footer.description}
             </p>
@@ -45,12 +62,21 @@ const Footer = () => {
               <ul className="space-y-3">
                 {column.items.map((item, itemIndex) => (
                   <li key={itemIndex}>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-orange-500 transition-colors text-sm"
-                    >
-                      {item}
-                    </a>
+                    {isInternalRoute(item) ? (
+                      <Link
+                        to={getItemLink(item)}
+                        className="text-gray-400 hover:text-orange-500 transition-colors text-sm"
+                      >
+                        {item}
+                      </Link>
+                    ) : (
+                      <a
+                        href={getItemLink(item)}
+                        className="text-gray-400 hover:text-orange-500 transition-colors text-sm"
+                      >
+                        {item}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
