@@ -182,21 +182,102 @@ const SolutionSection = () => (
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
-        {solution.features.map((feature, i) => {
-          const Icon = iconMap[feature.icon];
-          return (
-            <div key={i} className="flex gap-4 p-6 rounded-2xl bg-gray-900/30 border border-gray-800/50 hover:border-orange-500/30 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-orange-500/20 transition-colors">
-                <Icon className="w-6 h-6 text-orange-500" />
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        {/* Features List */}
+        <div className="space-y-4">
+          {solution.features.map((feature, i) => {
+            const Icon = iconMap[feature.icon];
+            return (
+              <div key={i} className="flex gap-4 p-6 rounded-2xl bg-gray-900/30 border border-gray-800/50 hover:border-orange-500/30 transition-all group">
+                <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-orange-500/20 transition-colors">
+                  <Icon className="w-6 h-6 text-orange-500" />
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-white mb-2">{feature.title}</h4>
+                  <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
+                </div>
               </div>
-              <div>
-                <h4 className="text-lg font-semibold text-white mb-2">{feature.title}</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
+            );
+          })}
+        </div>
+
+        {/* Phone Mockup with Cards */}
+        <div className="relative flex justify-center lg:justify-end">
+          <div className="relative">
+            {/* Glow behind phone */}
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-yellow-500/10 blur-3xl scale-110" />
+            
+            {/* Phone mockup */}
+            <div className="relative bg-gray-900 rounded-[3rem] p-3 border border-gray-700 shadow-2xl">
+              {/* Phone notch */}
+              <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-10" />
+              
+              {/* Phone screen */}
+              <div className="relative bg-white rounded-[2.5rem] overflow-hidden w-[280px] h-[560px]">
+                {/* Status bar */}
+                <div className="bg-gray-100 px-6 py-3 flex items-center justify-between">
+                  <span className="text-black text-xs font-medium">9:41</span>
+                  <div className="flex items-center gap-1">
+                    <div className="w-4 h-2 bg-black rounded-sm" />
+                  </div>
+                </div>
+                
+                {/* Header */}
+                <div className="bg-white px-6 py-4 flex items-center gap-4 border-b border-gray-100">
+                  <span className="text-gray-400 text-lg">&lt;</span>
+                  <h3 className="text-black text-xl font-semibold">Cards</h3>
+                </div>
+                
+                {/* Cards carousel */}
+                <div className="px-4 py-8">
+                  <div className="relative">
+                    {/* Main card */}
+                    <div className="bg-gradient-to-br from-blue-500 via-orange-400 to-yellow-400 rounded-2xl p-5 shadow-xl transform -rotate-2">
+                      <div className="flex justify-between items-start mb-16">
+                        <div className="w-10 h-8 bg-yellow-300 rounded" />
+                        <span className="text-white/80 text-xs">MASTERCARD</span>
+                      </div>
+                      <p className="text-white font-mono text-lg tracking-wider mb-4">5417 9860 8300 7262</p>
+                      <div className="flex justify-between items-end">
+                        <div>
+                          <p className="text-white/60 text-xs">Exp. Date</p>
+                          <p className="text-white text-sm">06/22</p>
+                        </div>
+                        <p className="text-white font-medium">MR J FIREPROOF</p>
+                      </div>
+                      {/* Mastercard logo */}
+                      <div className="absolute bottom-4 right-4 flex">
+                        <div className="w-6 h-6 bg-red-500 rounded-full" />
+                        <div className="w-6 h-6 bg-yellow-500 rounded-full -ml-2" />
+                      </div>
+                    </div>
+                    
+                    {/* Secondary card peek */}
+                    <div className="absolute top-4 -right-4 w-16 h-32 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl opacity-60 transform rotate-6" />
+                  </div>
+                  
+                  {/* Dots indicator */}
+                  <div className="flex justify-center gap-2 mt-6">
+                    <div className="w-2 h-2 rounded-full bg-orange-500" />
+                    <div className="w-2 h-2 rounded-full bg-gray-300" />
+                    <div className="w-2 h-2 rounded-full bg-gray-300" />
+                  </div>
+                </div>
+                
+                {/* Add to wallet button */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+                  <div className="flex items-center gap-2 bg-black text-white px-6 py-3 rounded-xl text-sm font-medium">
+                    <span>🍎</span> Add to Apple Wallet
+                  </div>
+                </div>
               </div>
             </div>
-          );
-        })}
+            
+            {/* Floating elements */}
+            <div className="absolute -top-4 -right-4 w-3 h-3 bg-orange-500 rounded-full animate-pulse" />
+            <div className="absolute -bottom-4 -left-4 w-2 h-2 bg-yellow-400 rounded-full animate-pulse delay-300" />
+          </div>
+        </div>
       </div>
     </div>
   </section>
