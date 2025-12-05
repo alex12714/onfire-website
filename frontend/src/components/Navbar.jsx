@@ -58,7 +58,7 @@ const Navbar = () => {
               Login
             </a>
             <Button
-              className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-all hover:scale-105"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full font-medium transition-all hover:scale-105"
             >
               Sign Up
             </Button>
