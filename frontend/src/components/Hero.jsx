@@ -49,7 +49,7 @@ const Hero = () => {
 
             <div className="flex flex-wrap gap-4">
               <a href={heroData.cta[0].href} target="_blank" rel="noopener noreferrer">
-                <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 rounded-lg font-semibold text-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 flex items-center gap-2">
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 rounded-full font-semibold text-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 flex items-center gap-2">
                   {heroData.cta[0].text}
                   <ArrowRight className="w-5 h-5" />
                 </Button>
