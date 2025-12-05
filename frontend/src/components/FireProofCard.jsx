@@ -102,7 +102,7 @@ const FireProofCard = () => {
             </ul>
 
             <a href="#">
-              <Button className="bg-transparent border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-6 py-3 rounded-lg font-medium transition-all flex items-center gap-2">
+              <Button className="bg-transparent border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-6 py-3 rounded-full font-medium transition-all flex items-center gap-2">
                 Learn About FireProof Token
                 <ArrowRight className="w-4 h-4" />
               </Button>
