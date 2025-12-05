@@ -20,7 +20,7 @@ const PowerfulFeatures = () => {
     const delta = timestamp - lastTimeRef.current;
     
     if (!isHovered) {
-      const speed = 60;
+      const speed = 30; // Slowed down by half
       const movement = (speed * delta) / 1000;
       
       setOffset(prev => {
