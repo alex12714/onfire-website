@@ -145,12 +145,12 @@ export const powerfulFeatures = {
     {
       title: 'Goal Management',
       description: 'Set and achieve your goals with guided coaching and progress tracking. Build healthy habits, track your daily routines, and get support from communities that understand your journey.',
-      image: 'https://www.onfire.so/images/user-habits.png'
+      image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&h=400&fit=crop'
     },
     {
       title: 'Monetization Tools',
       description: 'Create paid communities and sell physical products directly through the platform. Turn your expertise into income with built-in payment processing, subscription management, and marketplace integration.',
-      image: 'https://www.onfire.so/monetization-dashboard-with-revenue-charts.jpg'
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop'
     }
   ]
 };
