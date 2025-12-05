@@ -14,6 +14,7 @@ import Pricing from "./components/Pricing";
 import CTASection from "./components/CTASection";
 import Footer from "./components/Footer";
 import FireProofPage from "./pages/FireProofPage";
+import InvestorsPage from "./pages/InvestorsPage";
 
 const HomePage = () => {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/fireproof" element={<FireProofPage />} />
+          <Route path="/investors" element={<InvestorsPage />} />
         </Routes>
       </BrowserRouter>
     </div>
