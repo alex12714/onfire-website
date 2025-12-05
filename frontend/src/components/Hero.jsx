@@ -57,7 +57,7 @@ const Hero = () => {
               <a href={heroData.cta[1].href}>
                 <Button
                   variant="outline"
-                  className="border-gray-600 text-white hover:bg-white/10 px-8 py-6 rounded-lg font-semibold text-lg transition-all flex items-center gap-2"
+                  className="border-gray-600 text-white hover:bg-white/10 px-8 py-6 rounded-full font-semibold text-lg transition-all flex items-center gap-2"
                 >
                   <Play className="w-5 h-5" />
                   {heroData.cta[1].text}
