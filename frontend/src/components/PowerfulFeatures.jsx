@@ -25,7 +25,6 @@ const PowerfulFeatures = () => {
       
       setOffset(prev => {
         let newOffset = prev + movement;
-        // Reset seamlessly when we've scrolled one full set
         if (newOffset >= totalWidth) {
           newOffset = newOffset - totalWidth;
         }
@@ -46,13 +45,8 @@ const PowerfulFeatures = () => {
     };
   }, [animate]);
 
-  // Calculate which original item index is currently centered
-  const getCenterItemIndex = () => {
-    const centerOffset = offset % totalWidth;
-    return Math.floor(centerOffset / cardWidth) % totalOriginalItems;
-  };
-
-  const activeIndicator = getCenterItemIndex();
+  // Current center item index (0-3)
+  const activeIndicator = Math.floor(offset / cardWidth) % totalOriginalItems;
 
   const goToSlide = (index) => {
     setOffset(index * cardWidth);
@@ -103,16 +97,14 @@ const PowerfulFeatures = () => {
           }}
         >
           {items.map((feature, index) => {
-            // Only highlight the ONE card that matches the center position
             const itemOriginalIndex = index % totalOriginalItems;
-            const itemSetIndex = Math.floor(index / totalOriginalItems);
-            const currentCenterSet = Math.floor(offset / totalWidth);
-            const positionInCurrentView = (offset % totalWidth) / cardWidth;
             
-            // This card is center if it's the right original index AND in the visible set
-            const isExactCenter = 
-              itemOriginalIndex === activeIndicator && 
-              itemSetIndex === 1; // Middle set (tripled items: 0,1,2)
+            // Calculate this card's position relative to center
+            const cardCenterPos = (index * cardWidth) - offset + (cardWidth / 2);
+            const distanceFromCenter = Math.abs(cardCenterPos);
+            
+            // Only ONE card should be highlighted - the one closest to center
+            const isCenter = distanceFromCenter < cardWidth / 2;
             
             return (
               <div
@@ -120,17 +112,17 @@ const PowerfulFeatures = () => {
                 className="flex-shrink-0 mx-2.5 transition-all duration-500"
                 style={{
                   width: '320px',
-                  transform: isExactCenter ? 'scale(1.1)' : 'scale(0.9)',
-                  opacity: isExactCenter ? 1 : 0.3,
-                  zIndex: isExactCenter ? 30 : 10
+                  transform: isCenter ? 'scale(1.1)' : 'scale(0.9)',
+                  opacity: isCenter ? 1 : 0.3,
+                  zIndex: isCenter ? 30 : 10
                 }}
                 onClick={() => goToSlide(itemOriginalIndex)}
               >
                 <div 
                   className="relative h-[420px] rounded-3xl overflow-hidden bg-gray-900 cursor-pointer transition-all duration-500"
                   style={{
-                    border: isExactCenter ? '2px solid rgba(249, 115, 22, 0.6)' : '1px solid rgba(55, 65, 81, 0.3)',
-                    boxShadow: isExactCenter ? '0 30px 60px -15px rgba(249, 115, 22, 0.3)' : 'none'
+                    border: isCenter ? '2px solid rgba(249, 115, 22, 0.6)' : '1px solid rgba(55, 65, 81, 0.3)',
+                    boxShadow: isCenter ? '0 30px 60px -15px rgba(249, 115, 22, 0.3)' : 'none'
                   }}
                 >
                   {/* Image */}
@@ -139,7 +131,7 @@ const PowerfulFeatures = () => {
                       src={feature.image}
                       alt={feature.title}
                       className="w-full h-full object-cover transition-transform duration-700"
-                      style={{ transform: isExactCenter ? 'scale(1.15)' : 'scale(1)' }}
+                      style={{ transform: isCenter ? 'scale(1.15)' : 'scale(1)' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent" />
                   </div>
@@ -148,7 +140,7 @@ const PowerfulFeatures = () => {
                   <div className="p-6">
                     <h3 
                       className="text-xl font-bold mb-3 transition-colors duration-500"
-                      style={{ color: isExactCenter ? '#f97316' : '#ffffff' }}
+                      style={{ color: isCenter ? '#f97316' : '#ffffff' }}
                     >
                       {feature.title}
                     </h3>
@@ -158,7 +150,7 @@ const PowerfulFeatures = () => {
                   </div>
 
                   {/* Glow overlay */}
-                  {isExactCenter && (
+                  {isCenter && (
                     <div className="absolute inset-0 bg-gradient-to-t from-orange-500/10 to-transparent pointer-events-none" />
                   )}
                 </div>
