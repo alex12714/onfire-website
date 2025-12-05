@@ -9,8 +9,7 @@ import {
   Lock,
   Headphones,
   Star,
-  Settings,
-  X
+  Settings
 } from 'lucide-react';
 
 const iconMap = {
@@ -27,15 +26,15 @@ const iconMap = {
 
 // Word cloud positions - scattered layout
 const wordPositions = [
-  { x: 15, y: 20, size: 'text-2xl', rotate: -5 },
-  { x: 55, y: 10, size: 'text-3xl', rotate: 3 },
-  { x: 80, y: 25, size: 'text-xl', rotate: -8 },
-  { x: 25, y: 45, size: 'text-xl', rotate: 6 },
-  { x: 50, y: 40, size: 'text-2xl', rotate: -3 },
-  { x: 75, y: 50, size: 'text-2xl', rotate: 5 },
-  { x: 10, y: 70, size: 'text-2xl', rotate: -4 },
-  { x: 45, y: 72, size: 'text-xl', rotate: 7 },
-  { x: 78, y: 75, size: 'text-3xl', rotate: -6 },
+  { x: 15, y: 15, size: 'text-xl md:text-2xl', rotate: -5 },
+  { x: 50, y: 8, size: 'text-2xl md:text-3xl', rotate: 3 },
+  { x: 82, y: 18, size: 'text-lg md:text-xl', rotate: -8 },
+  { x: 22, y: 38, size: 'text-lg md:text-xl', rotate: 6 },
+  { x: 55, y: 35, size: 'text-xl md:text-2xl', rotate: -3 },
+  { x: 80, y: 42, size: 'text-xl md:text-2xl', rotate: 5 },
+  { x: 12, y: 62, size: 'text-xl md:text-2xl', rotate: -4 },
+  { x: 48, y: 65, size: 'text-lg md:text-xl', rotate: 7 },
+  { x: 82, y: 70, size: 'text-2xl md:text-3xl', rotate: -6 },
 ];
 
 const CreatorBenefits = () => {
@@ -43,10 +42,6 @@ const CreatorBenefits = () => {
 
   const handleWordClick = (index) => {
     setActiveWord(activeWord === index ? null : index);
-  };
-
-  const handleClose = () => {
-    setActiveWord(null);
   };
 
   return (
@@ -64,7 +59,7 @@ const CreatorBenefits = () => {
         </div>
 
         {/* Word Cloud Container */}
-        <div className="relative h-[500px] md:h-[450px]">
+        <div className="relative h-[550px] md:h-[500px]">
           {creatorBenefits.items.map((item, index) => {
             const position = wordPositions[index];
             const Icon = iconMap[item.icon];
@@ -79,83 +74,55 @@ const CreatorBenefits = () => {
                 style={{
                   left: `${position.x}%`,
                   top: `${position.y}%`,
-                  transform: isActive 
-                    ? 'translate(-50%, -50%) scale(1)' 
-                    : `translate(-50%, -50%) rotate(${position.rotate}deg)`,
+                  transform: `translate(-50%, -50%) rotate(${isActive ? 0 : position.rotate}deg)`,
                 }}
                 onClick={() => handleWordClick(index)}
               >
-                {/* Word/Title - Always visible */}
-                <div
-                  className={`transition-all duration-500 ${
-                    isActive 
-                      ? 'opacity-0 scale-0' 
-                      : activeWord !== null 
-                        ? 'opacity-30 scale-90' 
-                        : 'opacity-100 scale-100'
-                  }`}
-                >
-                  <span
-                    className={`${position.size} font-bold text-white hover:text-orange-500 transition-colors whitespace-nowrap
-                      drop-shadow-[0_0_10px_rgba(249,115,22,0.3)] hover:drop-shadow-[0_0_20px_rgba(249,115,22,0.5)]`}
-                  >
-                    {item.title}
-                  </span>
-                </div>
-
-                {/* Expanded Card - Shows on click */}
-                <div
-                  className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-                    transition-all duration-500 ease-out ${
-                    isActive
-                      ? 'opacity-100 scale-100 pointer-events-auto'
-                      : 'opacity-0 scale-0 pointer-events-none'
-                  }`}
-                >
-                  <div className="relative w-[320px] md:w-[380px] bg-gradient-to-br from-gray-900 to-gray-800 
-                    rounded-2xl p-6 border border-orange-500/30 shadow-2xl shadow-orange-500/10">
-                    {/* Close button */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleClose();
-                      }}
-                      className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 
-                        flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+                {/* Word/Title with inline expansion */}
+                <div className="flex flex-col items-center">
+                  {/* Title */}
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`${position.size} font-bold transition-all duration-500 whitespace-nowrap
+                        ${isActive 
+                          ? 'text-orange-500 drop-shadow-[0_0_25px_rgba(249,115,22,0.6)]' 
+                          : activeWord !== null 
+                            ? 'text-gray-600' 
+                            : 'text-white hover:text-orange-500 drop-shadow-[0_0_10px_rgba(249,115,22,0.3)] hover:drop-shadow-[0_0_20px_rgba(249,115,22,0.5)]'
+                        }`}
                     >
-                      <X className="w-4 h-4" />
-                    </button>
-
-                    {/* Icon */}
-                    <div className="w-14 h-14 rounded-xl bg-orange-500/20 flex items-center justify-center mb-4">
-                      <Icon className="w-7 h-7 text-orange-500" />
-                    </div>
-
-                    {/* Title */}
-                    <h4 className="text-xl font-bold text-white mb-3">
                       {item.title}
-                    </h4>
+                    </span>
+                    {/* Icon appears when active */}
+                    <div
+                      className={`transition-all duration-500 ${
+                        isActive 
+                          ? 'opacity-100 scale-100 ml-2' 
+                          : 'opacity-0 scale-0 w-0'
+                      }`}
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center">
+                        <Icon className="w-4 h-4 text-orange-500" />
+                      </div>
+                    </div>
+                  </div>
 
-                    {/* Description */}
-                    <p className="text-gray-300 leading-relaxed">
+                  {/* Description - slides down when active */}
+                  <div
+                    className={`overflow-hidden transition-all duration-500 ease-out ${
+                      isActive 
+                        ? 'max-h-40 opacity-100 mt-3' 
+                        : 'max-h-0 opacity-0 mt-0'
+                    }`}
+                  >
+                    <p className="text-gray-300 text-sm md:text-base leading-relaxed text-center max-w-xs md:max-w-sm">
                       {item.description}
                     </p>
-
-                    {/* Decorative elements */}
-                    <div className="absolute -bottom-2 -right-2 w-20 h-20 bg-orange-500/10 rounded-full blur-xl" />
                   </div>
                 </div>
               </div>
             );
           })}
-
-          {/* Background overlay when a word is active */}
-          <div
-            className={`absolute inset-0 bg-[#0f1029]/80 transition-opacity duration-300 ${
-              activeWord !== null ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            }`}
-            onClick={handleClose}
-          />
         </div>
       </div>
     </section>
