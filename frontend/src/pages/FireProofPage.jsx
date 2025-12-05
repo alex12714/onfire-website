@@ -53,7 +53,40 @@ const HeroSection = () => (
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-yellow-500/5 rounded-full blur-3xl" />
     </div>
 
-    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
+    {/* Hero Images */}
+    <div className="absolute inset-0 overflow-hidden">
+      {/* Left - Coin with fire */}
+      <div className="absolute left-0 top-20 w-[400px] h-[400px] opacity-90">
+        <img 
+          src="https://www.onfire.so/images/proof-coin-fire.png" 
+          alt="PROOF Coin"
+          className="w-full h-full object-contain"
+          onError={(e) => e.target.style.display = 'none'}
+        />
+      </div>
+      
+      {/* Center - Card */}
+      <div className="absolute left-1/2 top-24 -translate-x-1/2 w-[350px] opacity-90">
+        <img 
+          src="https://www.onfire.so/images/proof-card.png" 
+          alt="PROOF Card"
+          className="w-full h-auto"
+          onError={(e) => e.target.style.display = 'none'}
+        />
+      </div>
+      
+      {/* Right - Phone mockup */}
+      <div className="absolute right-0 top-16 w-[300px] opacity-80 hidden lg:block">
+        <img 
+          src="https://www.onfire.so/images/onfire-app-mockup.png" 
+          alt="OnFire App"
+          className="w-full h-auto"
+          onError={(e) => e.target.style.display = 'none'}
+        />
+      </div>
+    </div>
+
+    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 pb-24">
       {/* Badges */}
       <div className="flex flex-wrap justify-center gap-4 mb-8">
         <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/50 border border-gray-700 text-gray-300">
