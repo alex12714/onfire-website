@@ -38,7 +38,7 @@ const CTASection = () => {
             <a href={ctaSection.cta[1].href}>
               <Button
                 variant="outline"
-                className="border-gray-600 text-white hover:bg-white/10 px-8 py-6 rounded-xl font-semibold text-lg transition-all"
+                className="border-gray-600 text-white hover:bg-white/10 px-8 py-6 rounded-full font-semibold text-lg transition-all"
               >
                 {ctaSection.cta[1].text}
               </Button>
