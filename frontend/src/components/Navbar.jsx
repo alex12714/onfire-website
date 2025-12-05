@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { navLinks } from '../data/mock';
 import { Flame, Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
@@ -26,26 +27,32 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-2 group">
             <Flame className="w-8 h-8 text-orange-500 transition-transform group-hover:scale-110" />
             <span className="text-white font-bold text-xl">OnFire Messenger</span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-orange-500 ${
-                  link.isHighlighted
-                    ? 'text-orange-500 flex items-center gap-1'
-                    : 'text-gray-300'
-                }`}
-              >
-                {link.isHighlighted && <Flame className="w-4 h-4" />}
-                {link.name}
-              </a>
+              link.isHighlighted ? (
+                <Link
+                  key={link.name}
+                  to="/fireproof"
+                  className="text-orange-500 text-sm font-medium flex items-center gap-1 hover:text-orange-400 transition-colors"
+                >
+                  <Flame className="w-4 h-4" />
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-gray-300 text-sm font-medium transition-colors hover:text-orange-500"
+                >
+                  {link.name}
+                </a>
+              )
             ))}
           </div>
 
@@ -78,19 +85,26 @@ const Navbar = () => {
           <div className="md:hidden py-4 border-t border-gray-800">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className={`text-sm font-medium transition-colors hover:text-orange-500 ${
-                    link.isHighlighted
-                      ? 'text-orange-500 flex items-center gap-1'
-                      : 'text-gray-300'
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.isHighlighted && <Flame className="w-4 h-4" />}
-                  {link.name}
-                </a>
+                link.isHighlighted ? (
+                  <Link
+                    key={link.name}
+                    to="/fireproof"
+                    className="text-orange-500 text-sm font-medium flex items-center gap-1"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <Flame className="w-4 h-4" />
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-gray-300 text-sm font-medium transition-colors hover:text-orange-500"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
               <div className="flex flex-col gap-3 pt-4 border-t border-gray-800">
                 <a href="#" className="text-white text-sm font-medium">
