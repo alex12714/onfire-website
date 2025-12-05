@@ -100,7 +100,7 @@ const Pricing = () => {
               </ul>
 
               <Button
-                className={`w-full py-3 rounded-xl font-semibold transition-all ${
+                className={`w-full py-3 rounded-full font-semibold transition-all ${
                   plan.popular
                     ? 'bg-orange-500 hover:bg-orange-600 text-white'
                     : 'bg-gray-800 hover:bg-gray-700 text-white border border-gray-700'
