@@ -4,22 +4,13 @@ import { powerfulFeatures } from '../data/mock';
 const PowerfulFeatures = () => {
   const [translateX, setTranslateX] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [centerIndex, setCenterIndex] = useState(-1);
   const animationRef = useRef(null);
   const lastTimeRef = useRef(0);
-  const containerRef = useRef(null);
   
   const cardWidth = 340; // card width + gap
   const totalOriginalItems = powerfulFeatures.items.length;
   const totalWidth = cardWidth * totalOriginalItems;
-
-  // Calculate which card is in the center based on translateX
-  const getCenterCardIndex = useCallback(() => {
-    const offset = Math.abs(translateX) % totalWidth;
-    const centerIndex = Math.round(offset / cardWidth) % totalOriginalItems;
-    return centerIndex;
-  }, [translateX, totalWidth, totalOriginalItems, cardWidth]);
-
-  const [activeIndex, setActiveIndex] = useState(0);
 
   // Continuous animation loop
   const animate = useCallback((timestamp) => {
@@ -27,13 +18,11 @@ const PowerfulFeatures = () => {
     const delta = timestamp - lastTimeRef.current;
     
     if (!isHovered) {
-      // Move 50px per second
       const speed = 50;
       const movement = (speed * delta) / 1000;
       
       setTranslateX(prev => {
         const newTranslate = prev - movement;
-        // Reset when we've moved one full set
         if (Math.abs(newTranslate) >= totalWidth) {
           return newTranslate + totalWidth;
         }
@@ -45,11 +34,6 @@ const PowerfulFeatures = () => {
     animationRef.current = requestAnimationFrame(animate);
   }, [isHovered, totalWidth]);
 
-  // Update active index based on center position
-  useEffect(() => {
-    setActiveIndex(getCenterCardIndex());
-  }, [translateX, getCenterCardIndex]);
-
   useEffect(() => {
     animationRef.current = requestAnimationFrame(animate);
     return () => {
@@ -59,30 +43,39 @@ const PowerfulFeatures = () => {
     };
   }, [animate]);
 
+  // Calculate center card based on viewport
+  useEffect(() => {
+    const viewportCenter = window.innerWidth / 2;
+    const items = [...powerfulFeatures.items, ...powerfulFeatures.items, ...powerfulFeatures.items];
+    
+    let closestIndex = -1;
+    let closestDistance = Infinity;
+    
+    items.forEach((_, index) => {
+      // Card starts at translateX + index * cardWidth, centered in viewport
+      const cardStart = translateX + (index * cardWidth) + (window.innerWidth / 2) - (cardWidth * 1.5);
+      const cardCenter = cardStart + (cardWidth / 2);
+      const distance = Math.abs(cardCenter - viewportCenter);
+      
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+    
+    setCenterIndex(closestIndex);
+  }, [translateX, cardWidth]);
+
   const goToSlide = (index) => {
     const targetTranslate = -(index * cardWidth);
     setTranslateX(targetTranslate);
-    setActiveIndex(index);
   };
 
   // Triple the items for seamless infinite scroll
   const items = [...powerfulFeatures.items, ...powerfulFeatures.items, ...powerfulFeatures.items];
-
-  // Calculate if a specific card instance is the center one
-  const isCenterCard = (itemIndex) => {
-    if (!containerRef.current) return itemIndex === totalOriginalItems + activeIndex;
-    
-    const containerWidth = containerRef.current.offsetWidth || 1920;
-    const centerX = containerWidth / 2;
-    
-    // Calculate the position of this card
-    const cardPosition = (itemIndex * cardWidth) + translateX + (containerWidth / 2) - (cardWidth / 2);
-    const cardCenter = cardPosition + (cardWidth / 2);
-    
-    // Check if this card's center is closest to the viewport center
-    const distanceFromCenter = Math.abs(cardCenter - centerX);
-    return distanceFromCenter < cardWidth / 2;
-  };
+  
+  // Get the active indicator index (0-3)
+  const activeIndicator = centerIndex >= 0 ? centerIndex % totalOriginalItems : 0;
 
   return (
     <section id="features" className="py-24 bg-[#0a0b14] overflow-hidden">
@@ -98,35 +91,34 @@ const PowerfulFeatures = () => {
         </div>
       </div>
 
-      {/* Infinite Carousel - Full width container */}
+      {/* Infinite Carousel - Full width */}
       <div 
         className="relative"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        ref={containerRef}
       >
         {/* Shadow overlays - Full screen width, extended height */}
         <div 
-          className="absolute left-0 z-10 pointer-events-none bg-gradient-to-r from-[#0a0b14] via-[#0a0b14]/90 to-transparent"
+          className="absolute left-0 z-10 pointer-events-none"
           style={{
             top: '-50px',
             bottom: '-50px',
-            width: '25vw',
-            minWidth: '200px'
+            width: '30vw',
+            background: 'linear-gradient(to right, #0a0b14 0%, #0a0b14 60%, transparent 100%)'
           }}
         />
         <div 
-          className="absolute right-0 z-10 pointer-events-none bg-gradient-to-l from-[#0a0b14] via-[#0a0b14]/90 to-transparent"
+          className="absolute right-0 z-10 pointer-events-none"
           style={{
             top: '-50px',
             bottom: '-50px',
-            width: '25vw',
-            minWidth: '200px'
+            width: '30vw',
+            background: 'linear-gradient(to left, #0a0b14 0%, #0a0b14 60%, transparent 100%)'
           }}
         />
 
         {/* Cards Container */}
-        <div className="flex justify-center overflow-visible">
+        <div className="flex justify-center">
           <div 
             className="flex"
             style={{
@@ -135,18 +127,18 @@ const PowerfulFeatures = () => {
             }}
           >
             {items.map((feature, index) => {
-              const isCenter = isCenterCard(index);
+              const isCenter = index === centerIndex;
               
               return (
                 <div
                   key={index}
                   className={`flex-shrink-0 w-[320px] mx-2.5 transition-all duration-300 ${
-                    isCenter ? 'scale-105 opacity-100' : 'scale-95 opacity-40'
+                    isCenter ? 'scale-105 opacity-100 z-20' : 'scale-95 opacity-40'
                   }`}
                   onClick={() => goToSlide(index % totalOriginalItems)}
                 >
                   <div className={`relative h-[420px] rounded-3xl overflow-hidden bg-gray-900 border transition-all duration-300 cursor-pointer ${
-                    isCenter ? 'border-orange-500/50 shadow-xl shadow-orange-500/10' : 'border-gray-800'
+                    isCenter ? 'border-orange-500/50 shadow-2xl shadow-orange-500/20' : 'border-gray-800'
                   }`}>
                     {/* Image */}
                     <div className="relative h-[200px] overflow-hidden">
@@ -172,9 +164,9 @@ const PowerfulFeatures = () => {
                       </p>
                     </div>
 
-                    {/* Glow effect on active */}
+                    {/* Glow effect on center */}
                     {isCenter && (
-                      <div className="absolute inset-0 bg-gradient-to-t from-orange-500/5 to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-orange-500/10 to-transparent pointer-events-none" />
                     )}
                   </div>
                 </div>
@@ -191,7 +183,7 @@ const PowerfulFeatures = () => {
             key={index}
             onClick={() => goToSlide(index)}
             className={`rounded-full transition-all duration-300 ${
-              activeIndex === index
+              activeIndicator === index
                 ? 'w-8 h-2 bg-orange-500'
                 : 'w-2 h-2 bg-gray-600 hover:bg-gray-500'
             }`}
