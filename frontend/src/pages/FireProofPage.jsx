@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Flame, ArrowRight, Shield, Zap, TrendingUp, Lock, CreditCard, Globe, Users, Check, Copy, ExternalLink } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import {
