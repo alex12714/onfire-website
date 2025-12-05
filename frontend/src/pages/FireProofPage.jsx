@@ -53,40 +53,105 @@ const HeroSection = () => (
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-yellow-500/5 rounded-full blur-3xl" />
     </div>
 
-    {/* Hero Images */}
-    <div className="absolute inset-0 overflow-hidden">
-      {/* Left - Coin with fire */}
-      <div className="absolute left-0 top-20 w-[400px] h-[400px] opacity-90">
-        <img 
-          src="https://www.onfire.so/images/proof-coin-fire.png" 
-          alt="PROOF Coin"
-          className="w-full h-full object-contain"
-          onError={(e) => e.target.style.display = 'none'}
-        />
+    {/* Hero Visual Elements */}
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Left - Animated Coin */}
+      <div className="absolute left-8 lg:left-16 top-32 w-[200px] lg:w-[300px]">
+        <div className="relative">
+          {/* Coin glow */}
+          <div className="absolute inset-0 bg-orange-500/30 rounded-full blur-2xl animate-pulse" />
+          {/* Coin */}
+          <div className="relative w-32 h-32 lg:w-48 lg:h-48 rounded-full bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 shadow-2xl shadow-orange-500/30 flex items-center justify-center transform hover:rotate-12 transition-transform duration-500"
+            style={{ animation: 'float 3s ease-in-out infinite' }}>
+            <div className="text-center">
+              <Flame className="w-10 h-10 lg:w-14 lg:h-14 text-white mx-auto mb-1" />
+              <span className="text-white font-bold text-sm lg:text-lg">PROOF</span>
+            </div>
+          </div>
+          {/* Fire particles */}
+          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex gap-1">
+            <div className="w-2 h-6 bg-gradient-to-t from-orange-600 to-transparent rounded-full animate-pulse" />
+            <div className="w-3 h-8 bg-gradient-to-t from-orange-500 to-transparent rounded-full animate-pulse delay-100" />
+            <div className="w-2 h-5 bg-gradient-to-t from-yellow-500 to-transparent rounded-full animate-pulse delay-200" />
+          </div>
+        </div>
       </div>
       
-      {/* Center - Card */}
-      <div className="absolute left-1/2 top-24 -translate-x-1/2 w-[350px] opacity-90">
-        <img 
-          src="https://www.onfire.so/images/proof-card.png" 
-          alt="PROOF Card"
-          className="w-full h-auto"
-          onError={(e) => e.target.style.display = 'none'}
-        />
+      {/* Center Top - Floating Card */}
+      <div className="absolute left-1/2 -translate-x-1/2 top-20 lg:top-16 hidden md:block">
+        <div className="relative transform -rotate-6 hover:rotate-0 transition-transform duration-500"
+          style={{ animation: 'float 4s ease-in-out infinite' }}>
+          <div className="w-64 h-40 lg:w-80 lg:h-48 rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border border-gray-700 shadow-2xl p-4 lg:p-6">
+            {/* Card chip */}
+            <div className="w-10 h-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded mb-6" />
+            {/* Card details */}
+            <div className="space-y-2">
+              <div className="flex gap-3">
+                <div className="h-2 w-12 bg-gray-700 rounded" />
+                <div className="h-2 w-12 bg-gray-700 rounded" />
+                <div className="h-2 w-12 bg-gray-700 rounded" />
+                <div className="h-2 w-12 bg-gray-700 rounded" />
+              </div>
+              <div className="flex justify-between items-end mt-4">
+                <div className="text-gray-500 text-xs">FIREPROOF</div>
+                <div className="flex">
+                  <div className="w-6 h-6 bg-orange-500 rounded-full" />
+                  <div className="w-6 h-6 bg-yellow-500 rounded-full -ml-2" />
+                </div>
+              </div>
+            </div>
+            {/* PROOF badge */}
+            <div className="absolute top-3 right-3 px-2 py-1 bg-orange-500/20 rounded text-orange-500 text-xs font-bold">
+              PROOF
+            </div>
+          </div>
+        </div>
       </div>
       
-      {/* Right - Phone mockup */}
-      <div className="absolute right-0 top-16 w-[300px] opacity-80 hidden lg:block">
-        <img 
-          src="https://www.onfire.so/images/onfire-app-mockup.png" 
-          alt="OnFire App"
-          className="w-full h-auto"
-          onError={(e) => e.target.style.display = 'none'}
-        />
+      {/* Right - Phone App Mockup */}
+      <div className="absolute right-4 lg:right-16 top-24 hidden lg:block"
+        style={{ animation: 'float 3.5s ease-in-out infinite 0.5s' }}>
+        <div className="relative w-[180px]">
+          {/* Phone frame */}
+          <div className="bg-gray-900 rounded-[2rem] p-2 border border-gray-700 shadow-2xl">
+            <div className="bg-[#0f1029] rounded-[1.7rem] overflow-hidden">
+              {/* Screen content */}
+              <div className="p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <Flame className="w-4 h-4 text-orange-500" />
+                    <span className="text-white text-xs font-medium">OnFire</span>
+                  </div>
+                  <div className="w-6 h-6 rounded-full bg-gray-700" />
+                </div>
+                {/* Balance */}
+                <div className="bg-gray-800/50 rounded-xl p-3 mb-3">
+                  <p className="text-gray-500 text-xs">Balance</p>
+                  <p className="text-white font-bold">12,450 PROOF</p>
+                </div>
+                {/* Actions */}
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="bg-orange-500/20 rounded-lg p-2 text-center">
+                    <div className="w-4 h-4 bg-orange-500 rounded mx-auto mb-1" />
+                    <span className="text-orange-500 text-[10px]">Send</span>
+                  </div>
+                  <div className="bg-gray-800 rounded-lg p-2 text-center">
+                    <div className="w-4 h-4 bg-gray-600 rounded mx-auto mb-1" />
+                    <span className="text-gray-400 text-[10px]">Receive</span>
+                  </div>
+                  <div className="bg-gray-800 rounded-lg p-2 text-center">
+                    <div className="w-4 h-4 bg-gray-600 rounded mx-auto mb-1" />
+                    <span className="text-gray-400 text-[10px]">Swap</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 pb-24">
+    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 lg:pt-56 pb-24">
       {/* Badges */}
       <div className="flex flex-wrap justify-center gap-4 mb-8">
         <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/50 border border-gray-700 text-gray-300">
@@ -135,6 +200,14 @@ const HeroSection = () => (
         </Button>
       </div>
     </div>
+    
+    {/* CSS Animation */}
+    <style jsx>{`
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+      }
+    `}</style>
   </section>
 );
 
