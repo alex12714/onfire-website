@@ -13,6 +13,7 @@ import Testimonials from "./components/Testimonials";
 import Pricing from "./components/Pricing";
 import CTASection from "./components/CTASection";
 import Footer from "./components/Footer";
+import FireProofPage from "./pages/FireProofPage";
 
 const HomePage = () => {
   return (
@@ -39,6 +40,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/fireproof" element={<FireProofPage />} />
         </Routes>
       </BrowserRouter>
     </div>
