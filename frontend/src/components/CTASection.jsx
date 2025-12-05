@@ -30,7 +30,7 @@ const CTASection = () => {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href={ctaSection.cta[0].href} target="_blank" rel="noopener noreferrer">
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 rounded-xl font-semibold text-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 flex items-center gap-2">
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 rounded-full font-semibold text-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 flex items-center gap-2">
                 {ctaSection.cta[0].text}
                 <ArrowRight className="w-5 h-5" />
               </Button>
