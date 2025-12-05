@@ -4,13 +4,16 @@ import { powerfulFeatures } from '../data/mock';
 const PowerfulFeatures = () => {
   const [translateX, setTranslateX] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const [centerIndex, setCenterIndex] = useState(-1);
   const animationRef = useRef(null);
   const lastTimeRef = useRef(0);
   
-  const cardWidth = 340; // card width + gap
+  const cardWidth = 340;
   const totalOriginalItems = powerfulFeatures.items.length;
   const totalWidth = cardWidth * totalOriginalItems;
+
+  // Triple the items for seamless infinite scroll
+  const items = [...powerfulFeatures.items, ...powerfulFeatures.items, ...powerfulFeatures.items];
+  const startOffset = totalOriginalItems; // Start from middle set
 
   // Continuous animation loop
   const animate = useCallback((timestamp) => {
@@ -18,13 +21,14 @@ const PowerfulFeatures = () => {
     const delta = timestamp - lastTimeRef.current;
     
     if (!isHovered) {
-      const speed = 50;
+      const speed = 60;
       const movement = (speed * delta) / 1000;
       
       setTranslateX(prev => {
-        const newTranslate = prev - movement;
-        if (Math.abs(newTranslate) >= totalWidth) {
-          return newTranslate + totalWidth;
+        let newTranslate = prev - movement;
+        // Seamless loop reset
+        if (Math.abs(newTranslate) >= totalWidth * 2) {
+          newTranslate = newTranslate + totalWidth;
         }
         return newTranslate;
       });
@@ -35,50 +39,30 @@ const PowerfulFeatures = () => {
   }, [isHovered, totalWidth]);
 
   useEffect(() => {
+    // Start from middle set
+    setTranslateX(-totalWidth);
     animationRef.current = requestAnimationFrame(animate);
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [animate]);
-
-  // Calculate center card based on viewport
-  useEffect(() => {
-    const viewportCenter = window.innerWidth / 2;
-    const items = [...powerfulFeatures.items, ...powerfulFeatures.items, ...powerfulFeatures.items];
-    
-    let closestIndex = -1;
-    let closestDistance = Infinity;
-    
-    items.forEach((_, index) => {
-      // Card starts at translateX + index * cardWidth, centered in viewport
-      const cardStart = translateX + (index * cardWidth) + (window.innerWidth / 2) - (cardWidth * 1.5);
-      const cardCenter = cardStart + (cardWidth / 2);
-      const distance = Math.abs(cardCenter - viewportCenter);
-      
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
-      }
-    });
-    
-    setCenterIndex(closestIndex);
-  }, [translateX, cardWidth]);
+  }, [animate, totalWidth]);
 
   const goToSlide = (index) => {
-    const targetTranslate = -(index * cardWidth);
-    setTranslateX(targetTranslate);
+    setTranslateX(-totalWidth - (index * cardWidth));
   };
 
-  // Triple the items for seamless infinite scroll
-  const items = [...powerfulFeatures.items, ...powerfulFeatures.items, ...powerfulFeatures.items];
-  
-  // Get the active indicator index (0-3)
-  const activeIndicator = centerIndex >= 0 ? centerIndex % totalOriginalItems : 0;
+  // Calculate which card index is closest to center
+  const getCenterIndex = () => {
+    const offset = Math.abs(translateX + totalWidth);
+    return Math.round(offset / cardWidth) % totalOriginalItems;
+  };
+
+  const activeIndicator = getCenterIndex();
 
   return (
-    <section id="features" className="py-24 bg-[#0a0b14] overflow-hidden">
+    <section id="features" className="py-24 bg-[#0a0b14]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
@@ -91,72 +75,81 @@ const PowerfulFeatures = () => {
         </div>
       </div>
 
-      {/* Infinite Carousel - Full width */}
+      {/* Infinite Carousel */}
       <div 
-        className="relative"
+        className="relative overflow-hidden"
+        style={{ paddingTop: '50px', paddingBottom: '50px', marginTop: '-50px', marginBottom: '-50px' }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Shadow overlays - Full screen width, extended height */}
+        {/* Shadow overlays - Full width */}
         <div 
-          className="absolute left-0 z-10 pointer-events-none"
+          className="absolute left-0 top-0 bottom-0 z-20 pointer-events-none"
           style={{
-            top: '-50px',
-            bottom: '-50px',
-            width: '30vw',
-            background: 'linear-gradient(to right, #0a0b14 0%, #0a0b14 60%, transparent 100%)'
+            width: '35%',
+            background: 'linear-gradient(to right, #0a0b14 0%, #0a0b14 40%, rgba(10,11,20,0.8) 70%, transparent 100%)'
           }}
         />
         <div 
-          className="absolute right-0 z-10 pointer-events-none"
+          className="absolute right-0 top-0 bottom-0 z-20 pointer-events-none"
           style={{
-            top: '-50px',
-            bottom: '-50px',
-            width: '30vw',
-            background: 'linear-gradient(to left, #0a0b14 0%, #0a0b14 60%, transparent 100%)'
+            width: '35%',
+            background: 'linear-gradient(to left, #0a0b14 0%, #0a0b14 40%, rgba(10,11,20,0.8) 70%, transparent 100%)'
           }}
         />
 
         {/* Cards Container */}
         <div className="flex justify-center">
           <div 
-            className="flex"
+            className="flex items-center"
             style={{
               transform: `translateX(${translateX}px)`,
               transition: isHovered ? 'transform 0.3s ease-out' : 'none'
             }}
           >
             {items.map((feature, index) => {
-              const isCenter = index === centerIndex;
+              // Calculate distance from center
+              const cardPosition = (index * cardWidth) + translateX;
+              const viewportCenter = 0; // Cards are centered via flex
+              const distanceFromCenter = Math.abs(cardPosition + cardWidth/2);
+              const isCenter = distanceFromCenter < cardWidth * 0.6;
               
               return (
                 <div
                   key={index}
-                  className={`flex-shrink-0 w-[320px] mx-2.5 transition-all duration-300 ${
-                    isCenter ? 'scale-105 opacity-100 z-20' : 'scale-95 opacity-40'
-                  }`}
+                  className="flex-shrink-0 mx-2.5 transition-all duration-500"
+                  style={{
+                    width: '320px',
+                    transform: isCenter ? 'scale(1.08)' : 'scale(0.92)',
+                    opacity: isCenter ? 1 : 0.35,
+                    zIndex: isCenter ? 30 : 10
+                  }}
                   onClick={() => goToSlide(index % totalOriginalItems)}
                 >
-                  <div className={`relative h-[420px] rounded-3xl overflow-hidden bg-gray-900 border transition-all duration-300 cursor-pointer ${
-                    isCenter ? 'border-orange-500/50 shadow-2xl shadow-orange-500/20' : 'border-gray-800'
-                  }`}>
+                  <div 
+                    className="relative h-[420px] rounded-3xl overflow-hidden bg-gray-900 cursor-pointer transition-all duration-500"
+                    style={{
+                      border: isCenter ? '2px solid rgba(249, 115, 22, 0.5)' : '1px solid rgba(55, 65, 81, 0.5)',
+                      boxShadow: isCenter ? '0 25px 50px -12px rgba(249, 115, 22, 0.25)' : 'none'
+                    }}
+                  >
                     {/* Image */}
                     <div className="relative h-[200px] overflow-hidden">
                       <img
                         src={feature.image}
                         alt={feature.title}
-                        className={`w-full h-full object-cover transition-transform duration-500 ${
-                          isCenter ? 'scale-110' : 'scale-100'
-                        }`}
+                        className="w-full h-full object-cover transition-transform duration-700"
+                        style={{ transform: isCenter ? 'scale(1.1)' : 'scale(1)' }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent" />
                     </div>
 
                     {/* Content */}
                     <div className="p-6">
-                      <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 ${
-                        isCenter ? 'text-orange-500' : 'text-white'
-                      }`}>
+                      <h3 
+                        className="text-xl font-bold mb-3 transition-colors duration-500"
+                        style={{ color: isCenter ? '#f97316' : '#ffffff' }}
+                      >
                         {feature.title}
                       </h3>
                       <p className="text-gray-400 text-sm leading-relaxed">
@@ -164,7 +157,7 @@ const PowerfulFeatures = () => {
                       </p>
                     </div>
 
-                    {/* Glow effect on center */}
+                    {/* Glow overlay */}
                     {isCenter && (
                       <div className="absolute inset-0 bg-gradient-to-t from-orange-500/10 to-transparent pointer-events-none" />
                     )}
@@ -177,7 +170,7 @@ const PowerfulFeatures = () => {
       </div>
 
       {/* iOS-style Page Indicators */}
-      <div className="flex justify-center gap-2 mt-8">
+      <div className="flex justify-center gap-2 mt-12">
         {powerfulFeatures.items.map((_, index) => (
           <button
             key={index}
