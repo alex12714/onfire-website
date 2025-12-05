@@ -271,7 +271,7 @@ export const footer = {
     },
     {
       title: 'Company',
-      items: ['About', 'Careers', 'Press', 'Contact']
+      items: ['About', 'Careers', 'Investors', 'Contact']
     },
     {
       title: 'Resources',
