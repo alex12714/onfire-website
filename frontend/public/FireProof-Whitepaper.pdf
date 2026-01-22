@@ -1,0 +1,257 @@
+FireProof Whitepaper
+The Utility Token Powering OnFire Messenger
+Version 1.0 | October 2025
+
+Table of Contents
+1. Executive Summary
+2. Problem Statement
+3. Solution Overview
+4. Technology Stack
+5. Token Economics
+6. Utility & Use Cases
+7. Presale Details
+8. Roadmap
+9. Security & Compliance
+10. Team & Vision
+
+1. Executive Summary
+FireProof (PROOF) is a utility token built on Solana that powers the OnFire Messenger ecosystem. It
+enables users to communicate privately, transact globally through integrated payment cards, and
+participate in a decentralized marketplace. PROOF creates a complete financial and communication
+ecosystem where users own their data, control their funds, and benefit from network growth.
+Key Highlights
+Built on Solana for speed and low transaction costs
+Integrated Visa/Mastercard payment cards for real-world spending
+Private, encrypted messaging platform
+Deflationary tokenomics with locked liquidity
+Fair launch presale with anti-whale measures
+
+2. Problem Statement
+Modern communication and financial platforms face three critical issues:
+Privacy Crisis
+Users' conversations are monitored, stored, and monetized by centralized platforms. Data breaches
+and surveillance have become normalized, eroding fundamental rights to private communication.
+Crypto Usability Gap
+Despite widespread cryptocurrency adoption, spending crypto in the real world remains difficult.
+Complex exchanges, high fees, and limited merchant acceptance create significant barriers to
+mainstream usage.
+Value Extraction
+Traditional platforms extract value from users through data mining and advertising, while users
+receive no benefit from network growth. The people who create the value are not the ones who
+benefit from it.
+FireProof addresses these fundamental problems by creating an ecosystem where privacy is default,
+spending is seamless, and users share in the value they create.
+
+3. Solution Overview
+The FireProof ecosystem combines four core components into a unified platform:
+ Secure Messaging
+End-to-end encrypted communications
+built on a decentralized architecture with
+no data storage or surveillance.
+ Payment Integration
+Visa and Mastercard compatible cards
+with instant crypto-to-fiat conversion to
+spend PROOF at 40M+ merchants
+globally.
+ Marketplace
+P2P transactions within messenger for
+digital goods, services, and freelancer
+payments with built-in escrow.
+ Value Sharing
+Network growth benefits token holders
+through staking rewards, deflationary
+burns, and community governance.
+
+4. Technology Stack
+Blockchain: Solana
+FireProof is built on Solana, providing:
+High throughput: 65,000+ transactions per second
+Low transaction fees: Less than $0.01 per transaction
+Fast finality: 400ms block times
+Proven security and stability
+Smart Contracts
+SPL Token Standard for compatibility
+Automated liquidity locking mechanisms
+Burn mechanisms for deflationary pressure
+Staking contracts (post-launch phase)
+Payment Infrastructure
+Card issuance partners (Visa/Mastercard certified)
+Real-time crypto-to-fiat conversion
+Non-custodial wallet integration
+PCI DSS compliant systems
+Messenger Platform
+End-to-end encryption (Signal Protocol)
+Decentralized node architecture
+IPFS for media storage
+WebRTC for voice/video calls
+
+5. Token Economics
+Token Details
+Name: FireProof
+Ticker: PROOF
+Blockchain: Solana (SPL Token)
+Decimals: 6
+Contract: Dc48bjHeycsJ1a3VnxDY1g3XiciLiHzHrjAeN112yiKc
+Supply Allocation
+Presale: 35% - Public sale on PinkSale
+Liquidity Pool: 40% - Locked for 365 days on Raydium
+Ecosystem Rewards: 15% - Vested over 24 months for staking and growth
+Team: 5% - 12-month lock, 24-month linear vesting
+Partnerships: 5% - Strategic allocations for integrations
+Deflationary Mechanisms
+Unsold presale tokens automatically burned
+0.5% transaction fee with partial burns
+Marketplace fees used for buyback and burn
+Quarterly burns from revenue generation
+Utility Drivers
+Card activation requires PROOF holdings
+Premium messenger features (staking requirement)
+Marketplace transactions denominated in PROOF
+Governance voting rights for holders
+Cashback rewards paid in PROOF
+
+6. Utility & Use Cases
+1. Payment Cards
+Virtual and physical card issuance enabling users to spend PROOF at any Visa/Mastercard merchant
+worldwide.
+1-3% cashback in PROOF based on holdings tier
+No monthly fees for PROOF holders
+Real-time crypto-to-fiat conversion
+ATM withdrawals supported globally
+2. Messenger Premium Features
+Access to advanced messaging capabilities through PROOF staking:
+Unlimited encrypted voice/video calls (stake 1000+ PROOF)
+Large file transfers up to 10GB
+Custom themes, bots, and automation
+Priority customer support
+3. Marketplace Transactions
+Built-in marketplace for goods and services:
+All purchases conducted in PROOF
+Lower transaction fees for PROOF users
+Seller incentives and rewards in PROOF
+Automated escrow services
+4. Staking Rewards
+Earn passive income by participating in the ecosystem:
+Stake PROOF to earn yield
+Support network infrastructure
+Unlock increased cashback tiers
+Enhanced governance voting weight
+5. Governance
+
+Community-driven platform development:
+Vote on new feature additions
+Propose strategic partnerships
+Treasury allocation decisions
+Shape the platform's future direction
+
+7. Presale Details
+Presale Information
+Platform: PinkSale (Solana)
+Duration: October 5-19, 2025 (14 days)
+Hard Cap: 200 SOL
+Soft Cap: 140 SOL
+Rates & Pricing
+Presale Rate: 1 SOL = 1000 PROOF
+Listing Rate: 1 SOL = 875 PROOF
+Presale Advantage: ~14% bonus versus public listing
+Contribution Limits
+Minimum: 0.5 SOL per wallet
+Maximum: 5 SOL per wallet (anti-whale protection)
+Security Features
+75% of raised SOL locked as liquidity for 365 days
+Unsold tokens automatically burned
+Auto-listing on Raydium AMM V5
+Fair launch with strict whale protection
+Transparent smart contract operations
+
+Join the Presale
+Secure your position before the messenger launches!
+Participate Now
+
+8. Roadmap
+Q4 2025: Foundation
+ Token deployment on Solana
+ Presale launch on PinkSale (Oct 5-19)
+ Raydium DEX listing (Oct 19)
+ Virtual card beta program (1,000 users)
+ OnFire Messenger beta launch
+ Initial marketing campaign rollout
+Q1 2026: Expansion
+Physical card rollout (global availability)
+Marketplace platform launch
+Staking platform goes live
+Target: 10,000+ active users
+First centralized exchange listings
+Q2 2026: Acceleration
+Apple Pay / Google Pay integration
+Corporate card solutions launch
+Mobile applications (iOS/Android release)
+Target: 50,000+ active users
+Major marketing expansion
+Q3 2026: Scaling
+Multi-chain bridge (Ethereum, BSC)
+DeFi integrations (lending/borrowing)
+NFT marketplace integration
+Target: 100,000+ active users
+Goal: $100M+ market capitalization
+
+Q4 2026: Maturity
+Global expansion (Asia, Europe focus)
+Enterprise partnership programs
+Advanced governance features
+Target: 250,000+ active users
+Top-tier exchange listings (Binance, Coinbase)
+
+9. Security & Compliance
+Smart Contract Security
+Comprehensive third-party security audit
+Open-source code available on GitHub
+Multi-signature treasury controls
+Time-locked administrative functions
+Payment Card Compliance
+PCI DSS Level 1 certified infrastructure
+KYC/AML procedures for card issuance
+Regulatory compliance in all operating jurisdictions
+Partnership with licensed card processors
+User Security
+Non-custodial wallet design - users control private keys
+End-to-end encryption for all messages
+No central data storage or logging
+Regular security audits and penetration testing
+Liquidity Security
+75% of presale funds locked on Raydium for 365 days
+Transparent lock proof publicly verifiable
+No team access to locked liquidity funds
+Automatic unlock after predetermined period
+
+10. Team & Vision
+Our Vision
+We believe in a world where people can communicate freely and transact globally without
+intermediaries extracting value or violating privacy. FireProof and OnFire Messenger are tools to make
+that vision a reality.
+Our Mission
+Build a decentralized ecosystem where:
+Privacy is the default, not a luxury feature
+Financial tools are accessible to everyone
+Users benefit from the value they create
+Communication and commerce flow seamlessly
+Development Philosophy
+Community-First: Building for and with our users
+Transparent Development: Open communication about progress
+Regular Engagement: Active community interaction
+Sustainable Growth: Long-term focus over short-term hype
+Real Utility: Solving actual problems with practical solutions
+Join Our Community
+Stay updated on development, ask questions, and connect with the FireProof community:
+Telegram: t.me/onfiremessenger1
+Twitter/X: @OnFireMessenger
+Instagram: @onfire.messenger
+Facebook: onfire.messenger
+Website: https://onfire.so
+Email: hello@onfire.so
+
+FireProof (PROOF) Whitepaper v1.0
+October 2025
+© 2025 OnFire Messenger Inc. All rights reserved.
+This whitepaper is for informational purposes only and does not constitute financial advice.
+Cryptocurrency investments carry risk. Please conduct your own research.
